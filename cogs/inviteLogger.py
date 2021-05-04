@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from discord_slash import cog_ext, SlashContext
+# from discord_slash import cog_ext, SlashContext
 import typing
 
 class InviteLogger(commands.Cog):
@@ -44,35 +44,38 @@ class InviteLogger(commands.Cog):
 							await invite.inviter.add_roles(role)
 				break
 
-	@commands.command()
+	@commands.command(
+		name="invites",
+		description="Shows you your total invites or someone elses"
+		)
 	@commands.guild_only()
-	async def chkinvite(self, ctx, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
+	async def invites(self, ctx, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
 		user = user or ctx.author
 		count = 0
 		for key,values in self.old_invites.items():
 			if values.inviter.id == user.id:
 				count+=values.uses
 		embed = discord.Embed(title="📨 Invites",color=0x00FFFF)
-		embed.description = f"{user.name} has {count} invite"+("" if count<=1 else "s")
+		embed.description = f"{user.name} has **{count} invite"+("" if count<=1 else "s")+"** in total."
 		embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
 		await ctx.send(embed=embed)
 		await self.give_roles(count, user)
 
-	@cog_ext.cog_slash(
-		name="invites",
-		description="Checks total invites of a user or your"
-		)
-	async def invites(self, ctx:SlashContext, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
-		user = user or ctx.author
-		count = 0
-		for key,values in self.old_invites.items():
-			if values.inviter.id == user.id:
-				count+=values.uses
-		embed = discord.Embed(title="📨 Invites",color=0x00FFFF)
-		embed.description = f"{user.name} has {count} invite"+("" if count<=1 else "s")
-		embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
-		await ctx.send(embed=embed)
-		await self.give_roles(count, user)
+	# @cog_ext.cog_slash(
+	# 	name="invites",
+	# 	description="Checks total invites of a user or your"
+	# 	)
+	# async def invites(self, ctx:SlashContext, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
+	# 	user = user or ctx.author
+	# 	count = 0
+	# 	for key,values in self.old_invites.items():
+	# 		if values.inviter.id == user.id:
+	# 			count+=values.uses
+	# 	embed = discord.Embed(title="📨 Invites",color=0x00FFFF)
+	# 	embed.description = f"{user.name} has **{count} invite"+("" if count<=1 else "s")+"** in total."
+	# 	embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
+	# 	await ctx.send(embed=embed, hidden=True)
+	# 	await self.give_roles(count, user)
 
 	async def give_roles(self, count, user):
 		main_guild = self.bot.get_guild(self.guild)
