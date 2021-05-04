@@ -17,14 +17,12 @@ class Help(commands.Cog):
 			"Misc":["ping"],
 			"Owner Only":["jishaku"]
 		}
-		if ctx.guild.id==724397936917741608:
-			h['Role']=['role']
 		helpEmbed = discord.Embed(color=0x00FFFF)
 		helpEmbed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
 		helpEmbed.set_thumbnail(url=self.bot.user.avatar_url)
-		owner = await self.bot.fetch_user(self.bot.owner_id)
+		owner = self.bot.get_user(707876147324518440)
 		if cmd.lower()=='all':
-			helpEmbed.set_footer(text=f'Created by {owner.name}#{owner.discriminator} • Do k.help [command-name] for more info about the command.',icon_url=owner.avatar_url)
+			helpEmbed.set_footer(text=f'Created by {owner.name}#{owner.discriminator} • Do .help [command-name] for more info about the command.',icon_url=owner.avatar_url)
 			helpEmbed.title='Help Command'
 			for key, val in h.items():
 				helpEmbed.add_field(name=f'{key}',value=f'\n'.join([name for name in val]),inline=True)
