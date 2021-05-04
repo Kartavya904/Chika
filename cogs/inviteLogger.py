@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord_slash import cog_ext, SlashContext
 import typing
 
 class InviteLogger(commands.Cog):
@@ -46,6 +47,19 @@ class InviteLogger(commands.Cog):
 	@commands.command()
 	@commands.guild_only()
 	async def invites(self, ctx, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
+		user = user or ctx.author
+		count = 0
+		for key,values in self.old_invites.items():
+			if values.inviter.id == user.id:
+				count+=values.uses
+		embed = discord.Embed(title="📨 Invites",color=0x00FFFF)
+		embed.description = f"{user.name} has {count} invite"+("" if count<=1 else "s")
+		embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
+		await ctx.send(embed=embed)
+		await self.give_roles(count, user)
+
+	@cog_ext.cog_slash(name="invites")
+	async def invites(self, ctx:SlashContext, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
 		user = user or ctx.author
 		count = 0
 		for key,values in self.old_invites.items():
