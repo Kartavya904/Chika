@@ -46,7 +46,7 @@ class InviteLogger(commands.Cog):
 
 	@commands.command()
 	@commands.guild_only()
-	async def invites(self, ctx, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
+	async def chkinvite(self, ctx, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
 		user = user or ctx.author
 		count = 0
 		for key,values in self.old_invites.items():
@@ -58,7 +58,10 @@ class InviteLogger(commands.Cog):
 		await ctx.send(embed=embed)
 		await self.give_roles(count, user)
 
-	@cog_ext.cog_slash(name="invites")
+	@cog_ext.cog_slash(
+		name="invites",
+		description="Checks total invites of a user or your"
+		)
 	async def invites(self, ctx:SlashContext, user:typing.Optional[typing.Union[discord.Member,discord.User]]):
 		user = user or ctx.author
 		count = 0

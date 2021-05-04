@@ -16,6 +16,16 @@ slash = SlashCommand(bot, override_type=True)
 async def on_ready():
 	print(f"Logged in as {bot.user.name}")
 
+@bot.command(
+    name='ping',description='Shows you bots current latency'
+    )
+async def ping(ctx):
+    before = time.monotonic()
+    before_ws = int(round(bot.latency * 1000, 1))
+    message = await ctx.send("🏓 Pong")
+    ping = (time.monotonic() - before) * 1000
+    await message.edit(content=f"🏓 WS: {before_ws}ms  |  REST: {int(ping)}ms")
+
 for file in os.listdir('cogs'):
     if file.endswith('.py'):
         bot.load_extension(f'cogs.{file[:-3]}')
