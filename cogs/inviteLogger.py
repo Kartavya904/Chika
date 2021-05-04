@@ -27,7 +27,7 @@ class InviteLogger(commands.Cog):
 	@commands.Cog.listener()
 	async def on_member_join(self,member):
 		main_guild = self.bot.get_guild(self.guild)
-		for invite in await ctx.guild.invites():
+		for invite in await main_guild.invites():
 			if invite.uses > self.old_invites[invite.id].uses:
 				self.old_invites[invite.id]=invite
 				count = 0
@@ -39,7 +39,7 @@ class InviteLogger(commands.Cog):
 				if str(count) in self.roles.keys():
 					role = main_guild.get_role(self.roles[str(count)])
 					if role != None:
-						if not role in invite.inviter.roles():
+						if not role in invite.inviter.roles:
 							await invite.inviter.add_roles(role)
 				break
 
@@ -55,6 +55,25 @@ class InviteLogger(commands.Cog):
 		embed.description = f"{user.name} has {count} invite"+("" if count<=1 else "s")
 		embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
 		await ctx.send(embed=embed)
+		await self.give_roles(count, user)
+
+	async def give_roles(self, count, user):
+		main_guild = self.bot.get_guild(self.guild)
+		if count>20:
+			third = main_guild.get_role(self.roles["20"])
+			if not third in user.roles:
+				await user.add_roles(third)
+		elif count>10:
+			second = main_guild.get_role(self.roles["10"])
+			if not second in user.roles:
+				await user.add_roles(second)
+		elif count>5:
+			first = main_guild.get_role(self.roles["5"])
+			if not first in user.roles:
+				await user.add_roles(first)
+		else:
+			return
+
 
 def setup(bot):
     bot.add_cog(InviteLogger(bot))
