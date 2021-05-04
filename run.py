@@ -10,7 +10,7 @@ load_dotenv(dotenv_path)
 
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix=['.'], intents=intents, activity=discord.Game(name='.'), help_command=None)
+bot = commands.Bot(command_prefix=['.'], intents=intents, activity=discord.Game(name='.help | Managing HCS invite logging.'), help_command=None)
 # slash = SlashCommand(bot, override_type=True, sync_commands=True, sync_on_cog_reload=True)
 
 for file in os.listdir('cogs'):
