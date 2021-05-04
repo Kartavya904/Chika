@@ -18,19 +18,29 @@ class InviteLogger(commands.Cog):
 	async def on_ready(self):
 		main_guild = self.bot.get_guild(self.guild)
 		for invite in await main_guild.invites():
-				self.old_invites[invite.id]=invite
+			self.old_invites[invite.id]=invite
+
+	@commands.Cog.listener()
+	async def on_invite_create(self, invite):
+		self.old_invites[invite.id]=invite
 
 	@commands.Cog.listener()
 	async def on_member_join(self,member):
+		main_guild = self.bot.get_guild(self.guild)
 		for invite in await ctx.guild.invites():
-			if (invite.uses > self.old_invites[invite.id].uses) and (invite.inviter.id == self.old_invites[invite.id].inviter.id):
+			if invite.uses > self.old_invites[invite.id].uses:
 				self.old_invites[invite.id]=invite
 				count = 0
 				for key,value in self.old_invites.items():
 					if invite.inviter.id == value.inviter.id:
 						count+=value.uses
+				logChannel = self.bot.get_channel(self.log)
+				await logChannel.send(f"{member.mention} just joined {main_guild.name}! {member.name} was invited by {invite.inviter.name}! ({count}!)")
 				if str(count) in self.roles.keys():
-					await invite.inviter.add_roles(self.roles[str(count)])
+					role = main_guild.get_role(self.roles[str(count)])
+					if role != None:
+						if not role in invite.inviter.roles():
+							await invite.inviter.add_roles(role)
 				break
 
 	@commands.command()
