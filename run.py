@@ -53,6 +53,11 @@ async def on_member_join(member):
     content = f"Welcome to **Heaven's Coffeeshop [AniFarm]**, {member.mention}! \nPlease read the rules in <#727259226988216402> \nand check out the roles in <#742831976293203978> !\nWe hope you enjoy our service!  💧"
     await channel.send(content=content, file=discord.File(fp=output_buffer, filename="my_file.png"))
 
+@bot.event
+async def on_member_remove(member):
+    channel = bot.get_channel(726924534728622231)
+    await channel.send(f"{member.name}#{member.discriminator} has just left the server. We hope to see you again soon! 👋")
+
 @bot.command(
     name='ping',description='Shows you bots current latency'
     )
