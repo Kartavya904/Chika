@@ -32,7 +32,7 @@ async def on_member_join(member):
     draw = ImageDraw.Draw(welcome)
     async with aiohttp.ClientSession() as session:
         url = member.avatar_url
-        async with session.get(url) as response:
+        async with session.get(url=str(url)) as response:
             image_bytes = await response.read()
     await session.close()
     pfp = Image.open(BytesIO(image_bytes))
