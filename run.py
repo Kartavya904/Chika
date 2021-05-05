@@ -36,15 +36,15 @@ async def on_member_join(member):
     W, H = welcome.size
     font = ImageFont.truetype("Octagon.ttf", 70)
     w, h = draw.textsize("WELCOME",font)
-    draw.text(((W-w)/2,228),"WELCOME" ,(231, 84, 128),font=font)
+    draw.text(((W-w)/2,228),"WELCOME" ,(231, 84, 128),font=font,stroke_width=2, stroke_fill=(255,255,255))
     font = ImageFont.truetype("arial.ttf",35)
     text = f"{member.name}#{member.discriminator}! Joined the Server!"
     w, h = draw.textsize(text,font)
-    draw.text(((W-w)/2,308),text,(0,0,0),font=font)
+    draw.text(((W-w)/2,308),text,(0,0,0),font=font,stroke_width=2, stroke_fill=(255,255,255))
     font = ImageFont.truetype("arial.ttf",25)
     text = f"We are now at {guild.member_count} Member Strong"
     w, h = draw.textsize(text,font)
-    draw.text(((W-w)/2,368),text,(0,0,0),font=font)
+    draw.text(((W-w)/2,368),text,(0,0,0),font=font,stroke_width=2, stroke_fill=(255,255,255))
     welcome.paste(pfp, (450,15), mask)
     output_buffer = BytesIO()
     welcome.save(output_buffer,"png")
