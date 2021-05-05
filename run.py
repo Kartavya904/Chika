@@ -38,11 +38,11 @@ async def on_member_join(member):
     w, h = draw.textsize("WELCOME",font)
     draw.text(((W-w)/2,228),"WELCOME" ,(231, 84, 128),font=font,stroke_width=2, stroke_fill=(255,255,255))
     font = ImageFont.truetype("arial.ttf",35)
-    text = f"{member.name}#{member.discriminator}! Joined the Server!"
+    text = f"{member.name}#{member.discriminator} Joined the Server!"
     w, h = draw.textsize(text,font)
     draw.text(((W-w)/2,308),text,(0,0,0),font=font,stroke_width=2, stroke_fill=(255,255,255))
     font = ImageFont.truetype("arial.ttf",25)
-    text = f"We are now at {guild.member_count} Member Strong"
+    text = f"We are now at {guild.member_count} Members Strong"
     w, h = draw.textsize(text,font)
     draw.text(((W-w)/2,368),text,(0,0,0),font=font,stroke_width=2, stroke_fill=(255,255,255))
     welcome.paste(pfp, (450,15), mask)
@@ -50,7 +50,7 @@ async def on_member_join(member):
     welcome.save(output_buffer,"png")
     output_buffer.seek(0)
 
-    content = f"Welcome to Heaven's Coffeeshop [AniFarm], {member.mention}! \nPlease read the rules in <#727259226988216402> \nand check out the roles in <#742831976293203978> !\nWe hope you enjoy our service!  💧"
+    content = f"Welcome to **Heaven's Coffeeshop [AniFarm]**, {member.mention}! \nPlease read the rules in <#727259226988216402> \nand check out the roles in <#742831976293203978> !\nWe hope you enjoy our service!  💧"
     await channel.send(content=content, file=discord.File(fp=output_buffer, filename="my_file.png"))
 
 @bot.command(
