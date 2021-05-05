@@ -31,8 +31,9 @@ async def on_member_join(member):
     welcome = Image.open("welcome.jpg")
     draw = ImageDraw.Draw(welcome)
     async with aiohttp.ClientSession() as session:
-    async with session.get(member.avatar_url) as response:
-        image_bytes = await response.read()
+        url = member.avatar_url
+        async with session.get(url) as response:
+            image_bytes = await response.read()
     await session.close()
     pfp = Image.open(BytesIO(image_bytes))
     pfp = pfp.resize((417,417))
@@ -54,7 +55,7 @@ async def on_member_join(member):
     output_buffer = BytesIO()
     welcome.save(output_buffer,"png")
     output_buffer.seek(0)
-    
+
     await channel.send(file=discord.File(fp=output_buffer, filename="my_file.png"))
 
 @bot.command(
