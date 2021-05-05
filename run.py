@@ -50,7 +50,7 @@ async def on_member_join(member):
     welcome.save(output_buffer,"png")
     output_buffer.seek(0)
 
-    content = "Welcome to Heaven's Coffeeshop [AniFarm], {member.mention}! \nPlease read the rules in <#839435259765325824> \nand check out the roles in <#839435259765325824> !\nWe hope you enjoy our service!  💧"
+    content = f"Welcome to Heaven's Coffeeshop [AniFarm], {member.mention}! \nPlease read the rules in <#727259226988216402> \nand check out the roles in <#742831976293203978> !\nWe hope you enjoy our service!  💧"
     await channel.send(content=content, file=discord.File(fp=output_buffer, filename="my_file.png"))
 
 @bot.command(
