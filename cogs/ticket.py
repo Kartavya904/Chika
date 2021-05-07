@@ -9,6 +9,8 @@ class Ticket(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_raw_reaction_add(self, payload):
+		if payload.user_id==self.bot.user.id:
+			return
 		if payload.message_id==840115124555612170 and payload.emoji.name=='🎫':
 			channel = self.bot.get_channel(840072539840446474)
 			message = await channel.fetch_message(840115124555612170)
@@ -70,7 +72,7 @@ class Ticket(commands.Cog):
 		embed.timestamp = datetime.datetime.now()
 		embed.set_author(name=self.bot.user.name,icon_url=user.avatar_url)
 		embed.set_thumbnail(url=self.bot.user.avatar_url)
-		log_channel = await bot.fetch_channel(840182581630468096)
+		log_channel = await self.bot.fetch_channel(840182581630468096)
 		await log_channel.send(embed=embed)
 
 	async def create_log(self, messages):
