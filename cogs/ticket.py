@@ -64,9 +64,9 @@ class Ticket(commands.Cog):
 			m = m+messages[i].author.name+"#"+messages[i].author.discriminator+" :  "+messages[i].content+'\n\n'
 		link = await self.create_log(m)
 		embed = discord.Embed(title="Ticket Closed",color=0x00FFAA)
-		embed.set_field(name="Opened By",value=f"{user.name}#{user.discriminator}",inline=True)
-		embed.set_field(name="Closed By",value=f"{closer.name}#{closer.discriminator}",inline=True)
-		embed.set_field(name="Archive",value=f"[Click Here]({link})",inline=True)
+		embed.add_field(name="Opened By",value=f"{user.name}#{user.discriminator}",inline=True)
+		embed.add_field(name="Closed By",value=f"{closer.name}#{closer.discriminator}",inline=True)
+		embed.add_field(name="Archive",value=f"[Click Here]({link})",inline=True)
 		embed.timestamp = datetime.datetime.now()
 		embed.set_author(name=self.bot.user.name,icon_url=user.avatar_url)
 		embed.set_thumbnail(url=self.bot.avatar_url)
@@ -75,7 +75,7 @@ class Ticket(commands.Cog):
 
 	async def create_log(self, messages):
 		async with aiohttp.ClientSession() as session:
-			async with session.post('https://mystb.in/documents',data=m) as resp:
+			async with session.post('https://mystb.in/documents',data=messages) as resp:
 				key = await resp.json()
 		await session.close()
 		return	f'https://mystb.in/{key["key"]}'
