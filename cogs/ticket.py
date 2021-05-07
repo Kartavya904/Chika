@@ -11,9 +11,9 @@ class Ticket(commands.Cog):
 	async def on_raw_reaction_add(self, payload):
 		if payload.user_id==self.bot.user.id:
 			return
-		if payload.message_id==840115124555612170 and payload.emoji.name=='🎫':
+		if payload.message_id==840287218152505386 and payload.emoji.name=='🎫':
 			channel = self.bot.get_channel(840072539840446474)
-			message = await channel.fetch_message(840115124555612170)
+			message = await channel.fetch_message(840287218152505386)
 			await message.remove_reaction('🎫',payload.member)
 			await channel.set_permissions(payload.member, read_messages=False)
 			await self.create_channel(payload.member)
