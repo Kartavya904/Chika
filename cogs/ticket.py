@@ -69,7 +69,7 @@ class Ticket(commands.Cog):
 		embed.add_field(name="Archive",value=f"[Click Here]({link})",inline=True)
 		embed.timestamp = datetime.datetime.now()
 		embed.set_author(name=self.bot.user.name,icon_url=user.avatar_url)
-		embed.set_thumbnail(url=self.bot.avatar_url)
+		embed.set_thumbnail(url=self.bot.user.avatar_url)
 		log_channel = await bot.fetch_channel(840182581630468096)
 		await log_channel.send(embed=embed)
 
