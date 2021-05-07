@@ -14,7 +14,7 @@ class Ticket(commands.Cog):
 			await channel.set_permissions(payload.member, read_messages=False)
 			await self.create_channel(payload.member)
 			return
-		if payload.emoji.name=='🔒':
+		if payload.emoji.name=='🔒' and payload.user_id!=self.bot.user.id:
 			channel = self.bot.get_channel(payload.channel_id)
 			message = await channel.fetch_message(payload.message_id)
 			if not len(message.embeds)==1:
