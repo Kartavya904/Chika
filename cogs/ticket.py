@@ -17,20 +17,20 @@ class Ticket(commands.Cog):
 		if payload.emoji.name=='🔒' and payload.user_id!=self.bot.user.id:
 			channel = self.bot.get_channel(payload.channel_id)
 			message = await channel.fetch_message(payload.message_id)
+
 			if not len(message.embeds)==1:
 				return
 			else:
 				guild = self.bot.get_guild(payload.guild_id)
 				user = guild.get_member(payload.user_id)
-				cnl = guild.get_channel(payload.channel_id)
 				embed = (message.embeds)[0]
 				if embed.title=='Ticket Channel' and message.author==self.bot.user:
 					if str(payload.user_id)==embed.footer.text.split(' ')[-1]:
-						await self.close(cnl, user)
+						await self.close(channel, user)
 					else:
-						permission = user.permissions_in(cnl)
+						permission = user.permissions_in(channel)
 						if permission.manage_channels==True:
-							await self.close(cnl, user)
+							await self.close(channel, user)
 				return
 
 	async def create_channel(self, member):
