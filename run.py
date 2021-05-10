@@ -11,7 +11,7 @@ load_dotenv(dotenv_path)
 
 intents = discord.Intents.default()
 intents.members = True
-bot = commands.Bot(command_prefix=['.'], intents=intents, activity=discord.Game(name='.help | Managing HCS invite logging.'), help_command=None)
+bot = commands.Bot(command_prefix=['.','?','!'], intents=intents, activity=discord.Game(name='.help | Managing HCS invite logging.'), help_command=None)
 
 for file in os.listdir('cogs'):
     if file.endswith('.py'):
