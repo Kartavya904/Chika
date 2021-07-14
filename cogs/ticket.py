@@ -16,7 +16,7 @@ class Ticket(commands.Cog):
 			message = await channel.fetch_message(840287218152505386)
 			await message.remove_reaction('🎫',payload.member)
 			await channel.set_permissions(payload.member, read_messages=False)
-			await self.create_channel(payload.member)
+			await self.create_channel(payload.member, payload.guild_id)
 			return
 		if payload.emoji.name=='🔒' and payload.user_id!=self.bot.user.id:
 			channel = self.bot.get_channel(payload.channel_id)
@@ -39,13 +39,16 @@ class Ticket(commands.Cog):
 							await self.close(channel, user, closer)
 				return
 
-	async def create_channel(self, member):
+	async def create_channel(self, member, guild_id):
 		guild = await self.bot.fetch_guild(724397936917741608)
 		category = self.bot.get_channel(840072033236680724)
+		guild = self.bot.get_guild(guild_id)
+		helper = guild.get_role(864760038135824394)
 		overwrites = {
 			guild.default_role: discord.PermissionOverwrite(read_messages=False),
 			self.bot.user: discord.PermissionOverwrite(read_messages=True),
-			member: discord.PermissionOverwrite(read_messages=True)
+			member: discord.PermissionOverwrite(read_messages=True),
+			helper: discord.PermissionOverwrite(read_messages=True)
 		}
 		channel = await category.create_text_channel(name=member.name,overwrites=overwrites)
 		embed = discord.Embed(color=0xFF00FF)
