@@ -46,7 +46,7 @@ class Ticket(commands.Cog):
 							if user==closer:
 								await self.close(interaction.channel, user, closer)
 							else:
-								permission = closer.permissions_in(interaction.channel)
+								permission = closer.guild_permissions
 								if permission.manage_channels==True:
 									await self.close(interaction.channel, user, closer)
 						return
