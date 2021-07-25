@@ -18,16 +18,16 @@ class Help(commands.Cog):
 			"Owner Only":["jishaku"]
 		}
 		helpEmbed = discord.Embed(color=0x00FFFF)
-		helpEmbed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar_url)
-		helpEmbed.set_thumbnail(url=self.bot.user.avatar_url)
+		helpEmbed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+		helpEmbed.set_thumbnail(url=self.bot.user.avatar.url)
 		owner = self.bot.get_user(707876147324518440)
 		if cmd.lower()=='all':
-			helpEmbed.set_footer(text=f'Created by {owner.name}#{owner.discriminator} • Do .help [command-name] for more info about the command.',icon_url=owner.avatar_url)
+			helpEmbed.set_footer(text=f'Created by {owner.name}#{owner.discriminator} • Do .help [command-name] for more info about the command.',icon_url=owner.avatar.url)
 			helpEmbed.title='Help Command'
 			for key, val in h.items():
 				helpEmbed.add_field(name=f'{key}',value=f'\n'.join([name for name in val]),inline=True)
 		else:
-			helpEmbed.set_footer(text=f'Created by {owner.name}#{owner.discriminator}',icon_url=owner.avatar_url)
+			helpEmbed.set_footer(text=f'Created by {owner.name}#{owner.discriminator}',icon_url=owner.avatar.url)
 			cmdHelp = self.bot.get_command(cmd.lower())
 			if cmdHelp==None:
 				await ctx.send(f'No Command found with name *{cmd}*...')

@@ -57,7 +57,7 @@ class InviteLogger(commands.Cog):
 				count+=values.uses
 		embed = discord.Embed(title="📨 Invites",color=0x00FFFF)
 		embed.description = f"{user.name} has **{count} invite"+("" if count<=1 else "s")+"** in total."
-		embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
+		embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar.url)
 		await ctx.send(embed=embed)
 		await self.give_roles(count, user)
 
@@ -73,7 +73,7 @@ class InviteLogger(commands.Cog):
 	# 			count+=values.uses
 	# 	embed = discord.Embed(title="📨 Invites",color=0x00FFFF)
 	# 	embed.description = f"{user.name} has **{count} invite"+("" if count<=1 else "s")+"** in total."
-	# 	embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar_url)
+	# 	embed.set_author(name=ctx.author.name,icon_url=ctx.author.avatar.url)
 	# 	await ctx.send(embed=embed, hidden=True)
 	# 	await self.give_roles(count, user)
 
