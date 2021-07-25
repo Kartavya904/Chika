@@ -21,6 +21,7 @@ class Ticket(commands.Cog):
 		view.add_item(discord.ui.Button(label="| Create a ticket", emoji="🎫", style=discord.ButtonStyle.gray))
 		await ctx.send(embed=embed, view=view)
 	
+	# new button style with low level function
 	@commands.Cog.listener()
 	async def on_interaction(self,interaction: discord.Integration):
 		if interaction.type==discord.InteractionType.component:
@@ -50,6 +51,7 @@ class Ticket(commands.Cog):
 									await self.close(interaction.channel, user, closer)
 						return
 
+	# old reaction method
 	# @commands.Cog.listener()
 	# async def on_raw_reaction_add(self, payload):
 	# 	if payload.user_id==self.bot.user.id:
