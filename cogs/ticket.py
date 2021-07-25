@@ -102,7 +102,7 @@ class Ticket(commands.Cog):
 		embed.set_footer(text=f"Author id: {member.id}",icon_url=self.bot.user.avatar.url)
 		view = discord.ui.View(timeout=1)
 		view.add_item(discord.ui.Button(label="| Close", style=discord.ButtonStyle.gray, emoji="🔒"))
-		await channel.send(content=f"@ here it seems like {member.mention} need some help. Please come and help him/her",embed=embed, view=view)
+		await channel.send(content=f"@here it seems like {member.mention} need some help. Please come and help him/her",embed=embed, view=view)
 
 	async def close(self,cnl,user, closer):
 		channel = await self.bot.fetch_channel(840072539840446474)
