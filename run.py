@@ -29,7 +29,7 @@ async def on_member_join(member):
 
     welcome = Image.open("welcome.jpg")
     draw = ImageDraw.Draw(welcome)
-    pfp = Image.open(BytesIO(await (member.avatar_url).read()))
+    pfp = Image.open(BytesIO(await (member.avatar.url).read()))
     pfp = pfp.resize((215,215))
     mask = Image.open('mask.png').convert('L')
     mask = mask.resize((215,215))
