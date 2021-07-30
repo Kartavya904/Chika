@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import time
 from PIL import Image, ImageFont, ImageDraw, ImageOps
 from io import BytesIO
+import requests
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -29,7 +30,7 @@ async def on_member_join(member):
 
     welcome = Image.open("welcome.jpg")
     draw = ImageDraw.Draw(welcome)
-    pfp = Image.open(BytesIO(await (member.avatar.url).read()))
+    pfp = Image.open(BytesIO((requests.get(member.avatar.url).content)))
     pfp = pfp.resize((215,215))
     mask = Image.open('mask.png').convert('L')
     mask = mask.resize((215,215))
